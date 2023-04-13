@@ -844,6 +844,23 @@ NoMeshesPanel img {
     height:16px;
 }
 
+.btn-user-actions{
+    background-color: #888888;
+    color: black;
+    border: none;
+    border-right: 1px solid #333333;
+    font-size: 16px;
+    border-radius: 1px;
+    box-shadow: 0 0 #444444 2px;
+    padding: 4px 10px;
+    transition: background-color 0.5s;
+}
+
+.btn-user-actions:hover{
+    background-color: #555555;
+    transition: background-color 0.5s;
+}
+
 .a-btn-user{
     text-decoration: none;
     color: black;
@@ -1356,6 +1373,10 @@ NoMeshesPanel img {
     background-color: lightseagreen;
 }
 
+#p10html3{
+    display: none;
+}
+
 .p10html3right {
     float: right;
     font-size: small;
@@ -1861,7 +1882,7 @@ a {
 .style3sel {
     text-align: center;
     color: white;
-    background-color: #003366;
+    background-color: #333333;
     font-weight: bold;
 }
 

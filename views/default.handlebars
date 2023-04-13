@@ -219,12 +219,12 @@
                             <tr>
                                 <td tabindex=0 id=MainDev class="topbar_td style3x" onclick=go(10,event) onkeypress="if (event.key == 'Enter') go(10)">General</td>
                                 <td tabindex=0 id=MainDevDesktop class="topbar_td style3x" onclick=go(11,event) onkeypress="if (event.key == 'Enter') go(11)">Desktop</td>
-                                <td tabindex=0 id=MainDevTerminal class="topbar_td style3x" onclick=go(12,event) onkeypress="if (event.key == 'Enter') go(12)">Terminal</td>
+<!--                                <td tabindex=0 id=MainDevTerminal class="topbar_td style3x" onclick=go(12,event) onkeypress="if (event.key == 'Enter') go(12)">Terminal</td>
                                 <td tabindex=0 id=MainDevFiles class="topbar_td style3x" onclick=go(13,event) onkeypress="if (event.key == 'Enter') go(13)">Files</td>
                                 <td tabindex=0 id=MainDevEvents class="topbar_td style3x" onclick=go(16,event) onkeypress="if (event.key == 'Enter') go(16)">Events</td>
-                                <td tabindex=0 id=MainDevInfo class="topbar_td style3x" onclick=go(17,event) onkeypress="if (event.key == 'Enter') go(17)">Details</td>
+                                <td tabindex=0 id=MainDevInfo class="topbar_td style3x" onclick=go(17,event) onkeypress="if (event.key == 'Enter') go(17)">Details</td> -->
                                 <td tabindex=0 id=MainDevAmt class="topbar_td style3x" onclick=go(14,event) onkeypress="if (event.key == 'Enter') go(14)">Intel&reg;AMT</td>
-                                <td tabindex=0 id=MainDevConsole class="topbar_td style3x" onclick=go(15,event) onkeypress="if (event.key == 'Enter') go(15)">Console</td>
+<!--                                <td tabindex=0 id=MainDevConsole class="topbar_td style3x" onclick=go(15,event) onkeypress="if (event.key == 'Enter') go(15)">Console</td> -->
                                 <td tabindex=0 id=MainDevPlugins class="topbar_td style3x" onclick=go(19,event) onkeypress="if (event.key == 'Enter') go(19)">Plugins</td>
                                 <td class="topbar_td_end style3">&nbsp;</td>
                             </tr>
@@ -7336,14 +7336,14 @@
 
                 x += '</table><br />';
                 // Show action button, only show if we have permissions 4, 8, 64
-                if (((meshrights & (4 + 8 + 64 + 262144)) != 0) && (node.mtype < 3) && ((node.agent == null) || (node.agent.id != 34))) { x += '<input type=button value="' + "Actions" + '" title="' + "Perform power actions on the device" + '" onclick=deviceActionFunction() />'; }
-                x += '<input type=button value="' + "Notes" + '" title="' + "View notes about this device" + '" onclick=showNotes(' + ((meshrights & 128) == 0) + ',"' + encodeURIComponentEx(node._id) + '") />';
-                x += '<input type=button value="' + "Log Event" + '" title="' + "Write an event for this device" + '" onclick=writeDeviceEvent("' + encodeURIComponentEx(node._id) + '") />';
-                if ((node.mtype == 2) && (connectivity & 1) && ((meshrights & 131072) != 0)) { x += '<input type=button cmenu=deskPreConfigScriptContextMenu value="' + "Run" + '" title="' + "Run commands on this device" + '" onclick=runDeviceCmd("' + encodeURIComponentEx(node._id) + '") />'; }
+                if (((meshrights & (4 + 8 + 64 + 262144)) != 0) && (node.mtype < 3) && ((node.agent == null) || (node.agent.id != 34))) { x += '<input type=button value="' + "Actions" + '" title="' + "Perform power actions on the device" + '" onclick=deviceActionFunction() class=btn-user-actions />'; }
+                x += '<input type=button value="' + "Notes" + '" title="' + "View notes about this device" + '" onclick=showNotes(' + ((meshrights & 128) == 0) + ',"' + encodeURIComponentEx(node._id) + '") class=btn-user-actions  />';
+                x += '<input type=button value="' + "Log Event" + '" title="' + "Write an event for this device" + '" onclick=writeDeviceEvent("' + encodeURIComponentEx(node._id) + '") class=btn-user-actions  />';
+                if ((node.mtype == 2) && (connectivity & 1) && ((meshrights & 131072) != 0)) { x += '<input type=button cmenu=deskPreConfigScriptContextMenu value="' + "Run" + '" title="' + "Run commands on this device" + '" onclick=runDeviceCmd("' + encodeURIComponentEx(node._id) + '") class=btn-user-actions  />'; }
                 if (node.mtype != 4) {
-                    if ((meshrights & 8) && ((connectivity & 1) || ((node.pmt == 1) && ((features2 & 2) != 0)))) { x += '<input type=button value="' + "Message" + '" title="' + "Display a text message on the remote device" + '" onclick=deviceMessageFunction() />';  }
+                    if ((meshrights & 8) && ((connectivity & 1) || ((node.pmt == 1) && ((features2 & 2) != 0)))) { x += '<input type=button value="' + "Message" + '" title="' + "Display a text message on the remote device" + '" onclick=deviceMessageFunction() class=btn-user-actions  />';  }
                     //if ((connectivity & 1) && (meshrights & 8) && (node.agent.id < 5)) { x += '<input type=button value=Toast title="' + "Display a text message of the remote device" + '" onclick=deviceToastFunction() />';  }
-                    if ((meshrights & 8) && (connectivity & 1) || ((node.pmt == 1) && ((features2 & 2) != 0))) { x += '<input type=button value="' + "Chat" + '" title="' + "Open chat window to this computer" + '" onclick=deviceChat(event) />'; }
+                    if ((meshrights & 8) && (connectivity & 1) || ((node.pmt == 1) && ((features2 & 2) != 0))) { x += '<input type=button value="' + "Chat" + '" title="' + "Open chat window to this computer" + '" onclick=deviceChat(event) class=btn-user-actions  />'; }
                     if ((serverinfo != null) && (serverinfo.altmessenging != null) && (meshrights & 8) && (connectivity & 1)) {
                         for (var i in serverinfo.altmessenging) {
                             var am = serverinfo.altmessenging[i];
@@ -7353,7 +7353,7 @@
                         }
                     }
                     if ((serverinfo.guestdevicesharing !== false) && (node.agent != null) && (node.agent.caps & 3) && (connectivity & 1) && ((meshrights & 0x80008) == 0x80008) && ((meshrights == 0xFFFFFFFF) || ((meshrights & 0x1000) == 0))) {
-                        x += '<input type=button value="' + "Share" + '" title="' + "Create a link to share this device with a guest" + '" onclick=showShareDevice() />';
+                        x += '<input type=button value="' + "Share" + '" title="' + "Create a link to share this device with a guest" + '" onclick=showShareDevice() class=btn-user-actions  />';
                         QV('DeskGuestShareButton', true);
                     } else {
                         QV('DeskGuestShareButton', false);
