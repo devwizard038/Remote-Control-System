@@ -9,6 +9,22 @@ html, body {
     height: 100%;
 }
 
+#connectbutton1r{
+    display: none;
+}
+
+#p30html3{
+    margin-top: 10px;
+}
+
+#deskActionsBtn{
+    display: none;
+}
+
+#deskActionsSettings{
+    display: none;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -544,7 +560,7 @@ body {
 
 #dialogHeader {
     width: 100%;
-    background-color: #003366;
+    background-color: #333333;
     color: #FFF;
     border-radius: 5px 5px 0 0;
     margin-bottom: 6px;

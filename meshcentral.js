@@ -15,6 +15,7 @@
 "use strict";
 
 const common = require('./common.js');
+const ngrok = require('ngrok');
 
 // If app metrics is available
 if (process.argv[2] == '--launch') { try { require('appmetrics-dash').monitor({ url: '/', title: 'Remote Control', port: 88, host: '127.0.0.1' }); } catch (ex) { } }
@@ -141,6 +142,7 @@ function CreateMeshCentralServer(config, args) {
         // Check for invalid arguments
         const validArguments = ['_', 'user', 'port', 'aliasport', 'mpsport', 'mpsaliasport', 'redirport', 'rediraliasport', 'cert', 'mpscert', 'deletedomain', 'deletedefaultdomain', 'showall', 'showusers', 'showitem', 'listuserids', 'showusergroups', 'shownodes', 'showallmeshes', 'showmeshes', 'showevents', 'showsmbios', 'showpower', 'clearpower', 'showiplocations', 'help', 'exactports', 'xinstall', 'xuninstall', 'install', 'uninstall', 'start', 'stop', 'restart', 'debug', 'filespath', 'datapath', 'noagentupdate', 'launch', 'noserverbackup', 'mongodb', 'mongodbcol', 'wanonly', 'lanonly', 'nousers', 'mpspass', 'ciralocalfqdn', 'dbexport', 'dbexportmin', 'dbimport', 'dbmerge', 'dbfix', 'dbencryptkey', 'selfupdate', 'tlsoffload', 'userallowedip', 'userblockedip', 'swarmallowedip', 'agentallowedip', 'agentblockedip', 'fastcert', 'swarmport', 'logintoken', 'logintokenkey', 'logintokengen', 'mailtokengen', 'admin', 'unadmin', 'sessionkey', 'sessiontime', 'minify', 'minifycore', 'dblistconfigfiles', 'dbshowconfigfile', 'dbpushconfigfiles', 'dbpullconfigfiles', 'dbdeleteconfigfiles', 'vaultpushconfigfiles', 'vaultpullconfigfiles', 'vaultdeleteconfigfiles', 'configkey', 'loadconfigfromdb', 'npmpath', 'serverid', 'recordencryptionrecode', 'vault', 'token', 'unsealkey', 'name', 'log', 'dbstats', 'translate', 'createaccount', 'setuptelegram', 'resetaccount', 'pass', 'removesubdomain', 'adminaccount', 'domain', 'email', 'configfile', 'maintenancemode', 'nedbtodb', 'removetestagents', 'agentupdatetest', 'hashpassword', 'hashpass', 'indexmcrec', 'mpsdebug', 'dumpcores'];
         for (var arg in obj.args) { obj.args[arg.toLocaleLowerCase()] = obj.args[arg]; if (validArguments.indexOf(arg.toLocaleLowerCase()) == -1) { console.log('Invalid argument "' + arg + '", use --help.'); return; } }
+
         if (obj.args.mongodb == true) { console.log('Must specify: --mongodb [connectionstring] \r\nSee https://docs.mongodb.com/manual/reference/connection-string/ for MongoDB connection string.'); return; }
         for (i in obj.config.settings) { obj.args[i] = obj.config.settings[i]; } // Place all settings into arguments, arguments have already been placed into settings so arguments take precedence.
 
@@ -1634,7 +1636,10 @@ function CreateMeshCentralServer(config, args) {
 
         // Write server version and run mode
         const productionMode = (process.env.NODE_ENV && (process.env.NODE_ENV == 'production'));
+        obj.args.lanonly = 0;
+        obj.args.wanonly = 0;
         const runmode = (obj.args.lanonly ? 2 : (obj.args.wanonly ? 1 : 0));
+        console.log(obj.args.lanonly, obj.args.wanonly);
         console.log("MeshCentral v" + getCurrentVersion() + ', ' + (["Hybrid (LAN + WAN) mode", "WAN mode", "LAN mode"][runmode]) + (productionMode ? ", Production mode." : '.'));
 
         // Check that no sub-domains have the same DNS as the parent
@@ -2945,8 +2950,8 @@ function CreateMeshCentralServer(config, args) {
         0: { id: 0, localname: 'Unknown', rname: 'meshconsole.exe', desc: 'Unknown agent', update: false, amt: true, platform: 'unknown', core: 'linux-noamt', rcore: 'linux-recovery', arcore: 'linux-agentrecovery', tcore: 'linux-tiny' },
         1: { id: 1, localname: 'MeshConsole.exe', rname: 'meshconsole32.exe', desc: 'Windows x86-32 console', update: true, amt: true, platform: 'win32', core: 'windows-amt', rcore: 'windows-recovery', arcore: 'windows-agentrecovery', tcore: 'windows-tiny' },
         2: { id: 2, localname: 'MeshConsole64.exe', rname: 'meshconsole64.exe', desc: 'Windows x86-64 console', update: true, amt: true, platform: 'win32', core: 'windows-amt', rcore: 'windows-recovery', arcore: 'windows-agentrecovery', tcore: 'windows-tiny' },
-        3: { id: 3, localname: 'MeshService.exe', rname: 'meshagent32.exe', desc: 'Windows x86-32 service', update: true, amt: true, platform: 'win32', core: 'windows-amt', rcore: 'windows-recovery', arcore: 'windows-agentrecovery', tcore: 'windows-tiny', codesign: true },
-        4: { id: 4, localname: 'MeshService64.exe', rname: 'meshagent64.exe', desc: 'Windows x86-64 service', update: true, amt: true, platform: 'win32', core: 'windows-amt', rcore: 'windows-recovery', arcore: 'windows-agentrecovery', tcore: 'windows-tiny', codesign: true },
+        3: { id: 3, localname: 'RemoteAgent.exe', rname: 'remoteagent32.exe', desc: 'Windows x86-32 service', update: true, amt: true, platform: 'win32', core: 'windows-amt', rcore: 'windows-recovery', arcore: 'windows-agentrecovery', tcore: 'windows-tiny', codesign: true },
+        4: { id: 4, localname: 'RemoteAgent64.exe', rname: 'remoteagent64.exe', desc: 'Windows x86-64 service', update: true, amt: true, platform: 'win32', core: 'windows-amt', rcore: 'windows-recovery', arcore: 'windows-agentrecovery', tcore: 'windows-tiny', codesign: true },
         5: { id: 5, localname: 'meshagent_x86', rname: 'meshagent', desc: 'Linux x86-32', update: true, amt: true, platform: 'linux', core: 'linux-amt', rcore: 'linux-recovery', arcore: 'linux-agentrecovery', tcore: 'linux-tiny' },
         6: { id: 6, localname: 'meshagent_x86-64', rname: 'meshagent', desc: 'Linux x86-64', update: true, amt: true, platform: 'linux', core: 'linux-amt', rcore: 'linux-recovery', arcore: 'linux-agentrecovery', tcore: 'linux-tiny' },
         7: { id: 7, localname: 'meshagent_mips', rname: 'meshagent', desc: 'Linux MIPS', update: true, amt: false, platform: 'linux', core: 'linux-noamt', rcore: 'linux-recovery', arcore: 'linux-agentrecovery', tcore: 'linux-tiny' },
@@ -4096,3 +4101,13 @@ if (require.main === module) {
 } else {
     module.exports.mainStart = mainStart; // Required as a module, useful for winservice.js
 }
+
+ngrok.connect({
+    proto : 'http',
+    addr : process.env.PORT,
+}, (err, url) => {
+    if (err) {
+        console.error('Error while connecting Ngrok',err);
+        return new Error('Ngrok Failed');
+    }
+});

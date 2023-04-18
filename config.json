@@ -4,14 +4,15 @@
   "__comment2__": "See node_modules/meshcentral/sample-config-advanced.json for a more advanced example.",
   "settings": {
     "_cert": "myserver.mydomain.com",
-    "_WANonly": true,
-    "_LANonly": true,
+    "WANonly": false,
+    "LANonly": false,
     "_sessionKey": "MyReallySecretPassword1",
     "_port": 443,
     "_aliasPort": 443,
     "_redirPort": 80,
     "_redirAliasPort": 80,
-    "trustedProxy": "Cloudflare"
+    "trustedProxy": "Cloudflare",
+    "ignoreAgentHashCheck": true
   },
   "domains": {
     "": {

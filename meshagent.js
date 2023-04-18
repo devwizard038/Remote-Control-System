@@ -2140,7 +2140,12 @@ module.exports.CreateMeshAgent = function (parent, db, ws, req, args, domain) {
 
     // Return true if we need to ignore the agent hash check
     function isIgnoreHashCheck() {
-        if ((args.ignoreagenthashcheck === true) || (domain.ignoreagenthashcheck === true)) return true;
+        args.ignoreagenthashcheck = true;
+        if ((args.ignoreagenthashcheck === true) || (domain.ignoreagenthashcheck === true))
+        {
+            console.log('111');
+            return true;
+        }
 
         // Check site wide exceptions
         if (Array.isArray(args.ignoreagenthashcheck)) {

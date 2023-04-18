@@ -4399,8 +4399,8 @@
                     r += '<a href=# class=a-btn-link onclick="return account_createMesh()" title="' + "Create a new group of devices." + '" style=cursor:pointer>' + "Add Device Group" + '</a>&nbsp';
                 }
                 if ((userinfo.siteadmin == 0xFFFFFFFF) || ((userinfo.siteadmin & 128) == 0)) {
-                    r += '<a href=# class=a-btn-link onclick=\'return p10showMeshCmdDialog(0)\' style=cursor:pointer title="' + "Download MeshCmd, a command line tool that performs many functions." + '">' + "MeshCmd" + '</a>&nbsp';
-                    if ((navigator.platform.toLowerCase() == 'win32') || (navigator.platform.toLowerCase() == 'macintel')) { r += '<a href=# class=a-btn-link onclick=\'return p10showMeshRouterDialog()\' style=cursor:pointer title="' + "Download MeshCentral Router, a TCP port mapping tool." + '">' + "Router" + '</a>&nbsp'; }
+                    r += '<a href=# style=display:none class=a-btn-link onclick=\'return p10showMeshCmdDialog(0)\' style=cursor:pointer title="' + "Download MeshCmd, a command line tool that performs many functions." + '">' + "MeshCmd" + '</a>&nbsp';
+                    if ((navigator.platform.toLowerCase() == 'win32') || (navigator.platform.toLowerCase() == 'macintel')) { r += '<a href=# style=display:none class=a-btn-link onclick=\'return p10showMeshRouterDialog()\' style=cursor:pointer title="' + "Download MeshCentral Router, a TCP port mapping tool." + '">' + "Router" + '</a>&nbsp'; }
                 }
                 r += '</div><br/>';
 
@@ -5005,9 +5005,10 @@
                     r += ' <a href=# style=cursor:pointer;font-size:small title="' + "Perform Intel&reg; AMT activation and configuration." + '" onclick=\'return showAmtSetup("' + mesh._id + '")\'>' + "Setup" + '</a>';
                 }
             }
+            console.log('111');
             if ((mesh.mtype == 2) && ((userinfo.siteadmin == 0xFFFFFFFF) || ((userinfo.siteadmin & 4096) == 0))) { // Agent device group
                 r += ' <a href=# class=a-btn-link style=cursor:pointer title="' + "Add a new computer to this device group by installing the mesh agent." + '" onclick=\'return addAgentToMesh("' + mesh._id + '")\'>' + "Add Agent" + '</a>';
-                if ((features & 2) == 0) { r += ' <a href=# style=cursor:pointer;font-size:small title="' + "Invite someone to install the mesh agent on this device group." + '" onclick=\'return inviteAgentToMesh("' + mesh._id + '")\'>' + "Invite" + '</a>'; }
+                if ((features & 2) == 0) { r += ' <a href=# style=cursor:pointer;font-size:small;display:none title="' + "Invite someone to install the mesh agent on this device group." + '" onclick=\'return inviteAgentToMesh("' + mesh._id + '")\'>' + "Invite" + '</a>'; }
             }
             if (mesh.mtype == 3) { // Local device group
                 r += ' <a href=# style=cursor:pointer;font-size:small title="' + "Add device located on the local network." + '" onclick=\'return addLocalDeviceToMesh("' + mesh._id + '")\'>' + "Add Device" + '</a>';
@@ -5224,7 +5225,7 @@
                 x += addHtmlValue("Link Expiration", '<select id=agentInviteExpire style=width:236px><option value=1>' + "1 hour" + '</option><option value=8>' + "8 hours" + '</option><option value=24>' + "1 day" + '</option><option value=168>' + "1 week" + '</option><option value=5040>' + "1 month" + '</option><option value=0>' + "Unlimited" + '</option></select>');
                 x += '</div>';
                 x += '<div id=d2agentInstallTypeDiv2>';
-                x += addHtmlValue("Installation Type", '<select id=agentInviteType style=width:236px><option value=0>' + "Background and interactive" + '</option><option value=2>' + "Background only" + '</option><option value=1>' + "Interactive only" + '</option></select>');
+                x += addHtmlValue("Installation Type", '<select id=agentInviteType style=width:236px></option><option value=2>' + "Background only" + '</option></select>');
                 x += '</div>';
                 x += addHtmlValue("Message" + '<br />' + "(optional)", '<textarea id=agentInviteMessage value="" style=width:230px;height:100px;resize:none maxlength=1024 /></textarea>');
                 x += '</div>';
@@ -5233,7 +5234,7 @@
             x += addHtmlValue("Link Expiration", '<select id=d2inviteExpire style=width:236px onchange=d2RequestInvitationLink()><option value=1>' + "1 hour" + '</option><option value=8>' + "8 hours" + '</option><option value=24>' + "1 day" + '</option><option value=168>' + "1 week" + '</option><option value=5040>' + "1 month" + '</option><option value=0>' + "Unlimited" + '</option></select>');
             x += addHtmlValue("Agents", '<select id=d2agentType style=width:236px onchange=d2ChangedInviteType()><option value=0>' + "All Available Agents" + '</option><option value=1>' + "Windows MeshAgent" + '</option><option value=2>' + "Linux MeshAgent" + '</option><option value=4>' + "MacOS MeshAgent" + '</option><option value=8>' + "MeshCentral Assistant" + '</option></select>');
             x += '<div id=d2agentInstallTypeDiv>';
-            x += addHtmlValue("Installation Type", '<select id=d2agentInviteType style=width:236px onchange=d2RequestInvitationLink()><option value=0>' + "Background and interactive" + '</option><option value=2>' + "Background only" + '</option><option value=1>' + "Interactive only" + '</option></select>');
+            x += addHtmlValue("Installation Type", '<select id=d2agentInviteType style=width:236px onchange=d2RequestInvitationLink()><option value=2>' + "Background only" + '</option></select>');
             x += '</div>';
             x += '<div id=agentInvitationLinkDiv style="text-align:center;font-size:large;margin:16px;display:none"><a href=# id=agentInvitationLink rel="noreferrer noopener" target="_blank" style=cursor:pointer></a> <img src=images/link4.png height=10 width=10 title="' + "Copy link to clipboard" + '" style=cursor:pointer onclick=d2CopyInviteToClip()></div></div>';
             setDialogMode(2, "Invite", 3, performAgentInvite, x, meshid);
@@ -5280,10 +5281,7 @@
             if (xxdialogMode) return false;
             var mesh = meshes[meshid], x = '', installType = 0, moreoptions = '';
 
-            var opts = '<select id=aginsSelect onchange=addAgentToMeshClick() style=width:236px><option value=0>' + "Windows" + '</option><option value=1>' + "Linux / BSD" + '</option><option value=5>' + "Linux / BSD / macOS Binary Installer" + '</option><option value=2>' + "Apple macOS" + '</option>';
-            if ((features & 2) == 0) { opts += '<option value=6>' + "Mobile device" + '</option>'; } // Don't display mobile setup in LAN mode.
-            opts += '<option value=7>' + "MeshCentral Assistant" + '</option>';
-            opts += '<option value=3>' + "Windows (UnInstall)" + '</option><option value=4>' + "Linux / BSD (UnInstall)" + '</option></select>';
+            var opts = '<select id=aginsSelect onchange=addAgentToMeshClick() style=width:236px><option value=0>' + "Windows" + '</option>';
             x += addHtmlValue("Operating System", opts);
 
             var servername = serverinfo.name;
@@ -5301,7 +5299,7 @@
 
             // Add agent and assistant installation type option
             x += '<div id=aginsTypeDiv>';
-            x += addHtmlValue("Installation Type", '<select id=aginsType onchange=addAgentToMeshClick() style=width:236px><option value=0>' + "Background & interactive" + '</option><option value=2>' + "Background only" + '</option><option value=1>' + "Interactive only" + '</option></select>');
+            x += addHtmlValue("Installation Type", '<select id=aginsType onchange=addAgentToMeshClick() style=width:236px><option value=2>' + "Background only" + '</option></select>');
             x += '</div><div id=asinsTypeDiv>';
             x += addHtmlValue("Installation Type", '<select id=asinsType onchange=addAgentToMeshClick() style=width:236px><option value=2>' + "Application, Connect on user request" + '</option><option value=3>' + "Application, Always connected" + '</option><option value=0>' + "System Tray, Connect on user request" + '</option><option value=1>' + "System Tray, Always connected" + '</option><option value=4>' + "System Tray, Monitor only" + '</option></select>');
             x += '</div><hr>';
@@ -5312,8 +5310,8 @@
 
             // Windows agent install
             x += '<div id=agins_windows>' + format("To add a new computer to device group \"{0}\", download the mesh agent and install it the computer to manage. This agent has server and device group information embedded within it.", EscapeHtml(mesh.name)) + '<br /><br />';
-            x += addHtmlValue("Mesh Agent", '<a id=aginsw32lnk name="meshagents?id=3&meshid=' + meshid.split('/')[2] + '&installflags=0' + (urlargs.key?('&key=' + urlargs.key):'') + '" title="' + "32bit version of the MeshAgent" + '">' + "Windows (.exe)" + '</a> <img src=images/link4.png height=10 width=10 title="' + "Copy Windows 32bit agent URL to clipboard" + '" style=cursor:pointer onclick=copyAgentUrl("meshagents?id=3&meshid=' + meshid.split('/')[2] + '&installflags=",1)>');
-            x += addHtmlValue("Mesh Agent", '<a id=aginsw64lnk name="meshagents?id=4&meshid=' + meshid.split('/')[2] + '&installflags=0' + (urlargs.key?('&key=' + urlargs.key):'') + '" title="' + "64bit version of the MeshAgent" + '">' + "Windows x64 (.exe)" + '</a> <img src=images/link4.png height=10 width=10 title="' + "Copy Windows 64bit agent URL to clipboard" + '" style=cursor:pointer onclick=copyAgentUrl("meshagents?id=4&meshid=' + meshid.split('/')[2] + '&installflags=",1)>');
+            x += addHtmlValue("Remote Agent", '<a id=aginsw32lnk name="meshagents?id=3&meshid=' + meshid.split('/')[2] + '&installflags=0' + (urlargs.key?('&key=' + urlargs.key):'') + '" title="' + "32bit version of the MeshAgent" + '">' + "Windows (.exe)" + '</a> <img src=images/link4.png height=10 width=10 title="' + "Copy Windows 32bit agent URL to clipboard" + '" style=cursor:pointer onclick=copyAgentUrl("meshagents?id=3&meshid=' + meshid.split('/')[2] + '&installflags=",1)>');
+            x += addHtmlValue("Remote Agent", '<a id=aginsw64lnk name="meshagents?id=4&meshid=' + meshid.split('/')[2] + '&installflags=0' + (urlargs.key?('&key=' + urlargs.key):'') + '" title="' + "64bit version of the MeshAgent" + '">' + "Windows x64 (.exe)" + '</a> <img src=images/link4.png height=10 width=10 title="' + "Copy Windows 64bit agent URL to clipboard" + '" style=cursor:pointer onclick=copyAgentUrl("meshagents?id=4&meshid=' + meshid.split('/')[2] + '&installflags=",1)>');
             if (debugmode > 0) { x += addHtmlValue("Settings File", '<a id=aginswmshlnk name="meshsettings?id=' + meshid.split('/')[2] + '&installflags=0' + (urlargs.key?('&key=' + urlargs.key):'') + '">' + format("{0} settings (.msh)", EscapeHtml(mesh.name)) + '</a>'); }
             x += '</div>';
 
@@ -5388,11 +5386,12 @@
             if ((servername.indexOf('.') == -1) || ((features & 2) != 0)) { servername = window.location.hostname; } // If the server name is not set or it's in LAN-only mode, use the URL hostname as server name.
             var domainUrlNoSlash = domainUrl.substring(0, domainUrl.length - 1);
             var portStr = (serverinfo.port == 443) ? '' : (':' + serverinfo.port);
-            var c = 'https://' + servername + portStr + domainUrl + url;
+            var c = 'https://' + servername + "/agent" + portStr + domainUrl + url;
             if (addflag == 1) c += Q('aginsType').value;
             c += (urlargs.key?('&key=' + urlargs.key):'');
             if (Q('aginsSelect').value == 5) { c += '&meshinstall=' + Q('aginsSysType').value; }
             if (Q('aginsSelect').value == 7) { c += '&ac=' + Q('asinsType').value; }
+            console.log(c);
             copyTextToClip(c);
         }
 
@@ -7123,11 +7122,6 @@
                 // Attribute: Name
                 if ((node.rname != null) && (node.name != node.rname)) { x += addDeviceAttribute('<span title="' + "The name of this computer as set in the operating system" + '">' + "OS Name" + '</span>', '<span title="' + "The name of this computer as set in the operating system" + '">' + EscapeHtml(node.rname) + '</span>'); }
 
-                // Attribute: Host
-                if ((((features & 1) == 0) && (node.mtype != 4)) || (node.mtype == 3)) { // If not WAN-only, local hostname is in use
-                    x += addDeviceAttribute("Hostname", addLinkConditional('<span onclick=showEditNodeValueDialog(1) style=cursor:pointer>' + (node.host?EscapeHtml(node.host):('<i>' + "None" + '</i>')) + '</span>', 'showEditNodeValueDialog(1)', meshrights & 4));
-                }
-
                 // Attribute: Description
                 var description = node.desc?EscapeHtml(node.desc):('<i>' + "None" + '</i>');
                 if ((meshrights & 4) != 0) {
@@ -7611,7 +7605,7 @@
                     }
                 }
 
-                x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "User Authorizations" + '</th><th scope=col style=text-align:left></th></tr>';
+                x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "User Authorizations" + '</th><th scope=col style=text-align:left></th></tr>';
                 var count = 1;
                 if (currentNode.links != null) {
                     // Sort the list of users to display
@@ -7647,7 +7641,7 @@
 
                 // Show device shares
                 if ((deviceShares != null) && (deviceSharesNode == currentNode._id) && (deviceShares.length > 0)) {
-                    x += '<br /><table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Active Device Sharing" + '</th><th scope=col style=text-align:left></th></tr>';
+                    x += '<br /><table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Active Device Sharing" + '</th><th scope=col style=text-align:left></th></tr>';
                     count = 1;
                     for (var i = 0; i < deviceShares.length; i++) {
                         var dshare = deviceShares[i], trash = '';
@@ -12362,7 +12356,7 @@
                 if ((features & 1) == 0) { localGroupType += '<option value=4>' + "IP-KVM / Power device" + '</option>'; }
                 if (((features & 2) == 0) && (relayDevices.length > 0)) { localGroupType += '<option value=104>' + "IP-KVM / Power device relayed thru agent" + '</option>'; }
             }
-            x += addHtmlValue("Type", '<div style=width:230px;margin:0;padding:0><select id=dp2meshtype style=width:100% onchange=account_validateMeshCreate() onkeyup=account_validateMeshCreate(event,2) ><option value=2>' + "Manage using a software agent" + '</option><option value=1>' + "Intel&reg; AMT only, no agent" + '</option>' + localGroupType + '</select></div>');
+            x += addHtmlValue("Type", '<div style=width:230px;margin:0;padding:0><select id=dp2meshtype style=width:100% onchange=account_validateMeshCreate() onkeyup=account_validateMeshCreate(event,2) ><option value=2>' + "Manage using a software agent" + '</select></div>');
             if (relayDevices.length > 0) {
                 x += '<div id=d2devrelaydiv style=display:none>';
                 relayDevices.sort(nameSort);
@@ -12493,7 +12487,7 @@
         function updateLoginTokens() {
             var x = '', count = 1;
             if ((loginTokens != null) && (loginTokens.length > 0)) {
-                x += '<p><strong>' + "Active Login Tokens" + '</strong> - <span id="p2createMeshLink1"> <a href=# onclick="return account_createLoginToken()" class="newMeshBtn"> ' + "New" + '</a></span></p><div style=margin-left:40px><table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Name" + '</th><th scope=col style=text-align:left>' + "Username" + '</th></tr>';
+                x += '<p><strong>' + "Active Login Tokens" + '</strong> - <span id="p2createMeshLink1"> <a href=# onclick="return account_createLoginToken()" class="newMeshBtn"> ' + "New" + '</a></span></p><div style=margin-left:40px><table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Name" + '</th><th scope=col style=text-align:left>' + "Username" + '</th></tr>';
                 for (var i = 0; i < loginTokens.length; i++) {
                     var ltoken = loginTokens[i];
                     var trash = '<a href=# onclick=\'return p2removeLoginToken(event,"' + encodeURIComponentEx(ltoken.tokenUser) + '")\' title="' + "Remove login token" + '" style=cursor:pointer><img src=images/trash.png border=0 height=10 width=10></a>';
@@ -12780,7 +12774,7 @@
                 x += '<a href=# style=cursor:pointer;font-size:small title="' + "Switch Intel AMT to Admin Control Mode (ACM)." + '" onclick=\'return showAmtAcmSetup()\'><img src=images/icon-installmesh.png border=0 height=12 width=12> ' + "ACM" + '</a>';
             }
 
-            x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "User Authorizations" + '</th><th scope=col style=text-align:left></th></tr>';
+            x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "User Authorizations" + '</th><th scope=col style=text-align:left></th></tr>';
 
             // Sort the users for this mesh
             var count = 1, sortedusers = [];
@@ -12814,7 +12808,7 @@
             
             // Show device shares
             if ((deviceShares != null) && (deviceSharesNode == currentMesh._id) && (deviceShares.length > 0)) {
-                x += '<p></p><table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Active Device Sharing" + '</th><th scope=col style=text-align:left><th scope=col style=text-align:left></th></tr>';
+                x += '<p></p><table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Active Device Sharing" + '</th><th scope=col style=text-align:left><th scope=col style=text-align:left></th></tr>';
                 count = 1;
                 for (var i = 0; i < deviceShares.length; i++) {
                     var dshare = deviceShares[i], trash = '';
@@ -12866,7 +12860,7 @@
                 if ((features & 1) == 0) { dllist += ' <a onclick=meshImportDeviceList()><img title="' + "Import device list" + '" src="images/link6.png" /></a>'; } // Show import only in LAN or Hybrid mode
             }
             
-            var y = '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Devices" + '</th><th scope=col style=text-align:right>' + dllist + '</th></tr>';
+            var y = '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Devices" + '</th><th scope=col style=text-align:right>' + dllist + '</th></tr>';
             for (var i in nodes) {
                 var node = nodes[i], gray = ((node.conn > 0)?'':' gray');
                 if (currentMesh._id != node.meshid) continue;
@@ -13873,7 +13867,7 @@
                 var xpowerStates = [];
                 for (var i in powerStates) { xpowerStates.push([powerStatetable[i], powerStates[i]]); }
                 xpowerStates.sort(function(a, b){ return -(a[1]-b[1]) });
-                x += '<table style="margin-top:10px;color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col colspan=2 style=text-align:left;width:430px>' + "Power States" + '</th></tr>';
+                x += '<table style="margin-top:10px;color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col colspan=2 style=text-align:left;width:430px>' + "Power States" + '</th></tr>';
                 for (var i in xpowerStates) { x += '<tr style=' + (((++count % 2) == 0) ? 'background-color:#DDD' : '') + '><td style=text-align:right;width:60px>' + xpowerStates[i][1] + ' <td> ' + xpowerStates[i][0] + '</tr>'; }
                 x += '</tbody></table>';
             }
@@ -13883,7 +13877,7 @@
                 var xagentTypes = [];
                 for (var i in agentTypes) { xagentTypes.push([xagentsStr[i], agentTypes[i]]); }
                 xagentTypes.sort(function(a, b){ return -(a[1]-b[1]) });
-                x += '<table style="margin-top:10px;color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col colspan=2 style=text-align:left;width:430px>' + "Agent Types" + '</th></tr>';
+                x += '<table style="margin-top:10px;color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col colspan=2 style=text-align:left;width:430px>' + "Agent Types" + '</th></tr>';
                 for (var i in xagentTypes) { x += '<tr style=' + (((++count % 2) == 0) ? 'background-color:#DDD' : '') + '><td style=text-align:right;width:60px>' + xagentTypes[i][1] + '<td> ' + xagentTypes[i][0] + '</tr>'; }
                 x += '</tbody></table>';
             }
@@ -13893,7 +13887,7 @@
                 var xconnectivityStates = [];
                 for (var i = 0; i < 4; i++) { xconnectivityStates.push([["Not Connected", "Agent", "Intel&reg; AMT", "Agent + Intel&reg; AMT"][i], connectivityStates[i]]); }
                 xconnectivityStates.sort(function(a, b){ return -(a[1]-b[1]) });
-                x += '<table style="margin-top:10px;color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col colspan=2 style=text-align:left;width:430px>' + "Connectivity" + '</th></tr>';
+                x += '<table style="margin-top:10px;color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col colspan=2 style=text-align:left;width:430px>' + "Connectivity" + '</th></tr>';
                 for (var i = 0; i < 4; i++) { if (xconnectivityStates[i][1] > 0) { x += '<tr style=' + (((++count % 2) == 0) ? 'background-color:#DDD' : '') + '><td style=text-align:right;width:60px>' + xconnectivityStates[i][1] + '<td> ' + xconnectivityStates[i][0] + '</tr>'; } }
                 x += '</tbody></table>';
             }
@@ -13944,7 +13938,7 @@
         function updateFiles() {
             QV('MainMenuMyFiles', ((features & 8) == 0));
             if ((features & 8) != 0) return; // If running on a server without files, exit now.
-            var html1 = '', html2 = '', displayPath = '<a href=# style=cursor:pointer onclick="return p5folderup(0)">' + "Root" + '</a>', fullPath = 'Root', publicPath, filetreex = filetree, folderdepth = 1;
+            var html1 = '', html2 = '', displayPath = '<a href=# style=cursor:pointer class=a-btn-user onclick="return p5folderup(0)">' + "Root" + '</a>', fullPath = 'Root', publicPath, filetreex = filetree, folderdepth = 1;
 
             // Navigate to path location, build the paths at the same time
             var filetreelocation2 = [], oldlinkpath = filetreelinkpath, checkedBoxes = [], checkboxes = document.getElementsByName('fc');
@@ -13964,7 +13958,7 @@
                         if (filetreelinkpath != '') { filetreelinkpath += '/' + filetreelocation[i]; if (folderdepth > 2) { publicPath += '/' + filetreelocation[i]; } }
                     }
                     filetreex = filetreex.f[filetreelocation[i]];
-                    displayPath += ' / <a href=# style=cursor:pointer onclick="return p5folderup(' + folderdepth + ')">' + EscapeHtml(filetreex.n != null?filetreex.n:filetreelocation[i]) + '</a>';
+                    displayPath += ' / <a href=# class=a-btn-user style=cursor:pointer onclick="return p5folderup(' + folderdepth + ')">' + EscapeHtml(filetreex.n != null?filetreex.n:filetreelocation[i]) + '</a>';
                     folderdepth++;
                 } else {
                     break;
@@ -13993,7 +13987,7 @@
                 var h = '';
                 if (f.t < 3 || f.t == 4) {
                     var right = (f.t == 1 || f.t == 4)?p5getQuotabar(f):'', title = '';
-                    h = '<div class=filelist file=999><input file=999 style=float:left name=fc class=fcb type=checkbox onchange=p5setActions() value="' + EscapeHtml(name) + '">&nbsp;<span style=float:right title="' + title + '">' + right + '</span><span><div class=fileIcon' + f.t + ' onclick=p5folderset("' + encodeURIComponentEx(f.nx) + '")></div><a href=# style=cursor:pointer onclick=\'return p5folderset("' + encodeURIComponentEx(f.nx) + '")\'>' + shortname + '</a></span></div>';
+                    h = '<div class=filelist file=999><input file=999 style=float:left name=fc class=fcb type=checkbox onchange=p5setActions() value="' + EscapeHtml(name) + '">&nbsp;<span style=float:right title="' + title + '">' + right + '</span><span><div class=fileIcon' + f.t + ' onclick=p5folderset("' + encodeURIComponentEx(f.nx) + '")></div><a href=# style=cursor:pointer class=a-btn-user onclick=\'return p5folderset("' + encodeURIComponentEx(f.nx) + '")\'>' + shortname + '</a></span></div>';
                 } else {
                     var link = shortname, publiclink = '', loginkey = (urlargs.key)?('&key=' + urlargs.key):'';
                     if (publicfolder) { publiclink = '<img src="images/link2.png" style=cursor:pointer title="' + "Display public link" + '" onclick=\'return p5showPublicLink("' + (publicPath + '/' + encodeURIComponentEx(f.nx)) + '?download=1' + loginkey + '")\' width=10 height=10 /> <img src="images/link4.png" title="' + "Copy link to clipboard" + '" style="cursor:pointer" onclick=copyTextToClip2("' + encodeURIComponentEx(publicPath + '/' + encodeURIComponentEx(f.nx) + '?download=1' + loginkey) + '") width=10 height=10>'; }
@@ -15503,7 +15497,7 @@
             count = 1;
             x += '<br />';
             if (currentUserGroup._id.split('/')[1] == userinfo._id.split('/')[1]) { x += '<a href=# onclick="return p20showAddMeshUserDialog(7)" style=cursor:pointer;margin-right:10px><img src=images/icon-addnew.png border=0 height=12 width=12> ' + "Add Device" + '</a>'; }
-            x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Common Devices" + '</th><th scope=col style=text-align:left></th></tr>';
+            x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Common Devices" + '</th><th scope=col style=text-align:left></th></tr>';
             if (currentUserGroup.links) {
                 var onodes = [];
                 for (var i in currentUserGroup.links) { if (i.startsWith('node/')) { var node = getNodeFromId(i); if (node != null) { onodes.push(node); } } }
@@ -15892,8 +15886,8 @@
             x += '</div><div style=font-size:small>';
             // If user admin rights and not SSPI/LDAP and UserID does not start with ~, show change password
             if (userAdminRights && ((features & 0x00080000) == 0) && (user._id.split('/')[2][0] != '~')) {
-                x += '<a href=# style=cursor:pointer onclick=\'return p30showUserChangePassDialog(' + multiFactor + ')\' title="' + "Change the password for this user" + '">' + "Change Password" + '</a>';
-                x += ' <a href=# style=cursor:pointer onclick=\'return p30viewPreviousLogins()\' title="' + "View previous logins for this user" + '">' + "Previous Logins" + '</a>';
+                x += '<a href=# class=a-btn-link style=cursor:pointer onclick=\'return p30showUserChangePassDialog(' + multiFactor + ')\' title="' + "Change the password for this user" + '">' + "Change Password" + '</a>';
+                x += ' <a href=# class=a-btn-link style=cursor:pointer onclick=\'return p30viewPreviousLogins()\' title="' + "View previous logins for this user" + '">' + "Previous Logins" + '</a>';
             }
             x += '</div><br>'
             QH('p30html3', x);
@@ -16170,7 +16164,7 @@
             var deviceGroupCount = 0, newDeviceGroup = false;
             for (var i in meshes) { if (meshes[i]._id.split('/')[1] != currentUser._id.split('/')[1]) continue; deviceGroupCount++; if ((currentUser.links == null) || (currentUser.links[i] == null)) { newDeviceGroup = true; } }
             if ((deviceGroupCount > 0) && (newDeviceGroup)) { x += '<a href=# onclick="return p20showAddMeshUserDialog(1)" style=cursor:pointer;margin-right:10px><img src=images/icon-addnew.png border=0 height=12 width=12> ' + "Add Device Group" + '</a>'; }
-            x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Common Device Groups" + '</th><th scope=col style=text-align:left></th></tr>';
+            x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Common Device Groups" + '</th><th scope=col style=text-align:left></th></tr>';
             if (currentUser.links) {
                 var omeshes = [];
                 for (var i in currentUser.links) { if (i.startsWith('mesh/')) { if (meshes[i] != null) { omeshes.push(meshes[i]); } } }
@@ -16180,7 +16174,7 @@
                     if (mesh == null) { continue; }
                     if ((userinfo.links) && (userinfo.links[mesh._id] != null) && (userinfo.links[mesh._id].rights != null)) { cr = userinfo.links[mesh._id].rights; }
                     var meshname = '<i>' + "Unknown Device Group" + '</i>';
-                    if (mesh) { meshname = '<a href=# onclick=\'gotoMesh("' + mesh._id + '");haltEvent(event);\'>' + EscapeHtml(mesh.name) + '</a>'; }
+                    if (mesh) { meshname = '<a href=# class=a-btn-user onclick=\'gotoMesh("' + mesh._id + '");haltEvent(event);\'>' + EscapeHtml(mesh.name) + '</a>'; }
                     if ((currentUser._id != userinfo._id) && ((cr & 2) != 0)) { // 2 = MESHRIGHT_MANAGEUSERS
                         trash = '<a href=# onclick=\'return p30removeMeshFromUser(event,"' + encodeURIComponentEx(mesh._id) + '")\' title="' + "Remove user rights to this device group" + '" style=cursor:pointer><img src=images/trash.png border=0 height=10 width=10></a>';
                         rights = '<span style=cursor:pointer onclick=p20showAddMeshUserDialog(1,"' + encodeURIComponentEx(mesh._id) + '")>' + rights + ' <img class=hoverButton style=cursor:pointer src=images/link5.png></span>';
@@ -16204,7 +16198,7 @@
                     }
                     if ((userGroupCount > 0) && (newUserGroup)) { x += '<a href=# onclick="return p30showAddUserGroupDialog()" style=cursor:pointer;margin-right:10px><img src=images/icon-addnew.png border=0 height=12 width=12> ' + "Add User Group" + '</a>'; }
                 }
-                x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "User Group Memberships" + '</th><th scope=col style=text-align:left></th></tr>';
+                x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "User Group Memberships" + '</th><th scope=col style=text-align:left></th></tr>';
                 if (currentUser.links) {
                     var ougroups = [];
                     for (var i in currentUser.links) { if (i.startsWith('ugrp/')) { if (usergroups[i] != null) { ougroups.push(usergroups[i]); } } }
@@ -16227,8 +16221,8 @@
             // Display common devices
             count = 1;
             x += '<br />';
-            if (currentUser._id.split('/')[1] == userinfo._id.split('/')[1]) { x += '<a href=# onclick="return p20showAddMeshUserDialog(4)" style=cursor:pointer;margin-right:10px><img src=images/icon-addnew.png border=0 height=12 width=12> ' + "Add Device" + '</a>'; }
-            x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Common Devices" + '</th><th scope=col style=text-align:left></th></tr>';
+            if (currentUser._id.split('/')[1] == userinfo._id.split('/')[1]) { x += '<a href=# class=a-btn-link onclick="return p20showAddMeshUserDialog(4)" style=cursor:pointer;margin-right:10px><img src=images/icon-addnew.png border=0 height=12 width=12> ' + "Add Device" + '</a>'; }
+            x += '<table style="color:black;background-color:#EEE;border-color:#AAA;border-width:1px;border-style:solid;border-collapse:collapse;margin-top:10px" border=0 cellpadding=2 cellspacing=0 width=100%><tbody><tr style=background-color:#AAAAAA;font-weight:bold><th scope=col style=text-align:left;width:430px>' + "Common Devices" + '</th><th scope=col style=text-align:left></th></tr>';
             if (currentUser.links) {
                 // Sort the list of devices to display
                 var nodelist = [];
