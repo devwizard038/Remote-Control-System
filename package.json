@@ -19,7 +19,7 @@
   "main": "meshcentral.js",
   "scripts": {
     "start": "node meshcentral.js",
-    "build": "",
+    "build": ""
   },
   "bin": {
     "meshcentral": "bin/meshcentral"
