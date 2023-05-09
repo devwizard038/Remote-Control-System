@@ -52,7 +52,6 @@
     "ipcheck": "^0.1.0",
     "minimist": "^1.2.8",
     "multiparty": "^4.2.1",
-    "ngrok": "^4.3.3",
     "node-forge": "^1.0.0",
     "node-xcs": "^0.1.8",
     "otplib": "^10.2.3",
