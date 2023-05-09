@@ -18,7 +18,8 @@
   "author": "Ylian Saint-Hilaire <ylianst@gmail.com>",
   "main": "meshcentral.js",
   "scripts": {
-    "start": "node meshcentral.js"
+    "start": "node meshcentral.js",
+    "build": "",
   },
   "bin": {
     "meshcentral": "bin/meshcentral"
