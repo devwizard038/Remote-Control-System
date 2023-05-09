@@ -23,9 +23,6 @@
   "bin": {
     "meshcentral": "bin/meshcentral"
   },
-  "os": [
-    "not linux"
-  ],
   "license": "Apache-2.0",
   "files": [
     "*.js",
