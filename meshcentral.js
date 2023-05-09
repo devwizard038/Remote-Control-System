@@ -15,8 +15,6 @@
 "use strict";
 
 const common = require('./common.js');
-const ngrok = require('ngrok');
-
 // If app metrics is available
 if (process.argv[2] == '--launch') { try { require('appmetrics-dash').monitor({ url: '/', title: 'Remote Control', port: 88, host: '127.0.0.1' }); } catch (ex) { } }
 
