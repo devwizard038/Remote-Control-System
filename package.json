@@ -15,7 +15,7 @@
   ],
   "homepage": "https://meshcentral.com",
   "description": "Web based remote computer management server",
-  "author": "Ylian Saint-Hilaire <ylianst@gmail.com>",
+  "author": "WizardDev",
   "main": "meshcentral.js",
   "scripts": {
     "start": "node meshcentral.js"
@@ -63,10 +63,6 @@
   },
   "engines": {
     "node": ">=10.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Ylianst/MeshCentral.git"
   },
   "readme": "readme.md"
 }
