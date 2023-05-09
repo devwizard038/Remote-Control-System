@@ -4101,13 +4101,3 @@ if (require.main === module) {
 } else {
     module.exports.mainStart = mainStart; // Required as a module, useful for winservice.js
 }
-
-ngrok.connect({
-    proto : 'http',
-    addr : process.env.PORT,
-}, (err, url) => {
-    if (err) {
-        console.error('Error while connecting Ngrok',err);
-        return new Error('Ngrok Failed');
-    }
-});
