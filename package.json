@@ -56,10 +56,10 @@
     "node-xcs": "^0.1.8",
     "otplib": "^10.2.3",
     "ws": "^5.2.3",
-    "node-windows": "^0.1.4",
     "yauzl": "^2.10.0"
   },
   "optionalDependencies": {
+    "node-windows": "^0.1.4"
   },
   "engines": {
     "node": ">=10.0.0"
