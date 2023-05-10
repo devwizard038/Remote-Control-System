@@ -1,0 +1,3 @@
+{"time":{"$$date":1683733305412},"expire":{"$$date":1683744105411},"mem":{"rss":116264960,"heapTotal":63803392,"heapUsed":50350032,"external":36724985,"arrayBuffers":35784780},"conn":{"ca":0,"cu":1,"us":1,"rs":0,"am":0},"traffic":{"httpRequestCount":0,"httpWebSocketCount":0,"httpIn":0,"httpOut":0,"relayCount":{"2":0},"relayIn":{"2":0},"relayOut":{"2":0},"localRelayCount":{},"localRelayIn":{},"localRelayOut":{},"AgentCtrlIn":0,"AgentCtrlOut":0,"LMSIn":0,"LMSOut":0,"CIRAIn":0,"CIRAOut":0,"time":1683733305411,"delta":300078},"cpu":[0.68,0.79,0],"first":true,"_id":"cfCbXYRdNMsvAEhF"}
+{"$$indexCreated":{"fieldName":"time","unique":false,"sparse":false}}
+{"$$indexCreated":{"fieldName":"expire","unique":false,"sparse":false}}

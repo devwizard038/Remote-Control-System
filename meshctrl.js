@@ -1001,8 +1001,8 @@ function performConfigOperations(args) {
     if (fs.existsSync(configFile) == false) { configFile = path.join('meshcentral-data', 'config.json'); }
     if (fs.existsSync(configFile) == false) { configFile = path.join(__dirname, 'config.json'); }
     if (fs.existsSync(configFile) == false) { configFile = path.join(__dirname, 'meshcentral-data', 'config.json'); }
+    if (fs.existsSync(configFile) == false) { configFile = path.join(__dirname, 'meshcentral-data', 'config.json'); }
     if (fs.existsSync(configFile) == false) { configFile = path.join(__dirname, '..', 'meshcentral-data', 'config.json'); }
-    if (fs.existsSync(configFile) == false) { configFile = path.join(__dirname, '..', '..', 'meshcentral-data', 'config.json'); }
     if (fs.existsSync(configFile) == false) { console.log("Unable to find config.json."); return; }
     var config = null;
     try { config = fs.readFileSync(configFile).toString('utf8'); } catch (ex) { console.log("Error: Unable to read config.json"); return; }

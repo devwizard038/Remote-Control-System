@@ -1470,7 +1470,6 @@ a {
 
 .i1 {
     background: url(../images/img-device-show.jpg);
-    background-image: image-set(url(../images/icons50.png) 1x, url(../images/icons100.png) 2x);
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -1479,7 +1478,6 @@ a {
 
 .i2 {
     background: url(../images/icons50.png) -50px 0px;
-    background-image: image-set(url(../images/icons50.png) 1x, url(../images/icons100.png) 2x);
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -1488,7 +1486,6 @@ a {
 
 .i3 {
     background: url(../images/icons50.png) -100px 0px;
-    background-image: image-set(url(../images/icons50.png) 1x, url(../images/icons100.png) 2x);
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -1497,7 +1494,6 @@ a {
 
 .i4 {
     background: url(../images/icons50.png) -150px 0px;
-    background-image: image-set(url(../images/icons50.png) 1x, url(../images/icons100.png) 2x);
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -1506,7 +1502,6 @@ a {
 
 .i5 {
     background: url(../images/icons50.png) -200px 0px;
-    background-image: image-set(url(../images/icons50.png) 1x, url(../images/icons100.png) 2x);
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -1515,7 +1510,6 @@ a {
 
 .i6 {
     background: url(../images/icons50.png) -250px 0px;
-    background-image: image-set(url(../images/icons50.png) 1x, url(../images/icons100.png) 2x);
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -1524,7 +1518,6 @@ a {
 
 .i7 {
     background: url(../images/icons50.png) -300px 0px;
-    background-image: image-set(url(../images/icons50.png) 1x, url(../images/icons100.png) 2x);
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -1533,7 +1526,6 @@ a {
 
 .i8 {
     background: url(../images/icons50.png) -350px 0px;
-    background-image: image-set(url(../images/icons50.png) 1x, url(../images/icons100.png) 2x);
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -1542,7 +1534,6 @@ a {
 
 .j1 {
     background: url(../images/icons16.png) 0px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     cursor: pointer;
@@ -1551,7 +1542,6 @@ a {
 
 .j2 {
     background: url(../images/icons16.png) -16px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     cursor: pointer;
@@ -1560,7 +1550,6 @@ a {
 
 .j3 {
     background: url(../images/icons16.png) -32px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     cursor: pointer;
@@ -1569,7 +1558,6 @@ a {
 
 .j4 {
     background: url(../images/icons16.png) -48px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     cursor: pointer;
@@ -1578,7 +1566,6 @@ a {
 
 .j5 {
     background: url(../images/icons16.png) -64px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     cursor: pointer;
@@ -1587,7 +1574,6 @@ a {
 
 .j6 {
     background: url(../images/icons16.png) -80px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     cursor: pointer;
@@ -1596,7 +1582,6 @@ a {
 
 .j7 {
     background: url(../images/icons16.png) -96px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     cursor: pointer;
@@ -1605,7 +1590,6 @@ a {
 
 .j8 {
     background: url(../images/icons16.png) -112px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     cursor: pointer;
@@ -1652,7 +1636,6 @@ a {
 
 .lb1 {
     background: url(../images/img-device-show.jpg);
-    background-image: image-set(url(../images/leftbar-64.png) 1x, url(../images/leftbar-128.png) 2x);
     height: 62px;
     width: 62px;
     cursor: pointer;
@@ -1664,7 +1647,6 @@ a {
 
 .lb2 {
     background: url(../images/img-device.jpg) -66px -2px;
-    background-image: image-set(url(../images/leftbar-64.png) 1x, url(../images/leftbar-128.png) 2x);
     height: 62px;
     width: 62px;
     cursor: pointer;
@@ -1676,7 +1658,6 @@ a {
 
 .lb3 {
     background: url(../images/leftbar-64.png) -130px -2px;
-    background-image: image-set(url(../images/leftbar-64.png) 1x, url(../images/leftbar-128.png) 2x);
     height: 62px;
     width: 62px;
     cursor: pointer;
@@ -1688,7 +1669,6 @@ a {
 
 .lb4 {
     background: url(../images/img-files.jpg);
-    background-image: image-set(url(../images/leftbar-64.png) 1x, url(../images/leftbar-128.png) 2x);
     height: 62px;
     width: 62px;
     cursor: pointer;
@@ -1700,7 +1680,6 @@ a {
 
 .lb5 {
     background: url(../images/img-user.png) -257px -2px;
-    background-image: image-set(url(../images/leftbar-64.png) 1x, url(../images/leftbar-128.png) 2x);
     height: 62px;
     width: 62px;
     cursor: pointer;
@@ -1712,7 +1691,6 @@ a {
 
 .lb6 {
     background: url(../images/img-server.png) -318px -2px;
-    background-image: image-set(url(../images/leftbar-64.png) 1x, url(../images/leftbar-128.png) 2x);
     height: 62px;
     width: 62px;
     cursor: pointer;
@@ -1772,7 +1750,6 @@ a {
 
 .si1 {
     background: url(../images/icons16.png) 0px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     border: none;
@@ -1781,7 +1758,6 @@ a {
 
 .si2 {
     background: url(../images/icons16.png) -16px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     border: none;
@@ -1790,7 +1766,6 @@ a {
 
 .si3 {
     background: url(../images/icons16.png) -32px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     border: none;
@@ -1799,7 +1774,6 @@ a {
 
 .si4 {
     background: url(../images/icons16.png) -48px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     border: none;
@@ -1808,7 +1782,6 @@ a {
 
 .si5 {
     background: url(../images/icons16.png) -64px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     border: none;
@@ -1817,7 +1790,6 @@ a {
 
 .si6 {
     background: url(../images/icons16.png) -80px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     border: none;
@@ -1826,7 +1798,6 @@ a {
 
 .si7 {
     background: url(../images/icons16.png) -96px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     border: none;
@@ -1835,7 +1806,6 @@ a {
 
 .si8 {
     background: url(../images/icons16.png) -112px 0px;
-    background-image: image-set(url(../images/icons16.png) 1x, url(../images/icons32.png) 2x);
     height: 16px;
     width: 16px;
     border: none;
@@ -1844,7 +1814,6 @@ a {
 
 .mi {
     background: url(../images/meshicon50.png) 0px 0px;
-    background-image: image-set(url(../images/meshicon50.png) 1x, url(../images/meshicon100.png) 2x);
     height: 50px;
     width: 50px;
     cursor: pointer;
