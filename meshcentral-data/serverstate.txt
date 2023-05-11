@@ -1,9 +1,8 @@
-time=1683733702769
+time=1683773830136
 state=stopped
-server-pid=14224
-server-parent-pid=8920
+server-pid=18656
+server-parent-pid=17544
 redirect-port=80
 mps-port=4433
 mps-name=un-configured
-servername=un-configured
 https-port=443

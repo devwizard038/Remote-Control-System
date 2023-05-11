@@ -1634,10 +1634,7 @@ function CreateMeshCentralServer(config, args) {
 
         // Write server version and run mode
         const productionMode = (process.env.NODE_ENV && (process.env.NODE_ENV == 'production'));
-        obj.args.lanonly = 0;
-        obj.args.wanonly = 0;
         const runmode = (obj.args.lanonly ? 2 : (obj.args.wanonly ? 1 : 0));
-        console.log(obj.args.lanonly, obj.args.wanonly);
         console.log("MeshCentral v" + getCurrentVersion() + ', ' + (["Hybrid (LAN + WAN) mode", "WAN mode", "LAN mode"][runmode]) + (productionMode ? ", Production mode." : '.'));
 
         // Check that no sub-domains have the same DNS as the parent
