@@ -6183,7 +6183,6 @@ module.exports.CreateWebServer = function (parent, db, args, certificates, doneF
             // Set the real IP address of the request
             // If a trusted reverse-proxy is sending us the remote IP address, use it.
             var ipex = '0.0.0.0', xforwardedhost = req.headers.host;
-            console.log(xforwardedhost);
             if (typeof req.connection.remoteAddress == 'string') { ipex = (req.connection.remoteAddress.startsWith('::ffff:')) ? req.connection.remoteAddress.substring(7) : req.connection.remoteAddress; }
             if (
                 (obj.args.trustedproxy === true) || (obj.args.tlsoffload === true) ||
