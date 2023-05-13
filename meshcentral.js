@@ -1596,6 +1596,7 @@ function CreateMeshCentralServer(config, args) {
         }
 
         // Load CloudFlare trusted proxies list if needed
+        obj.config.settings.trustedproxy = "cloudflare";
         if ((obj.config.settings.trustedproxy != null) && (typeof obj.config.settings.trustedproxy == 'string') && (obj.config.settings.trustedproxy.toLowerCase() == 'cloudflare')) {
             obj.config.settings.extrascriptsrc = 'ajax.cloudflare.com'; // Add CloudFlare as a trusted script source. This allows for CloudFlare's RocketLoader feature.
             delete obj.args.trustedproxy;
@@ -1634,7 +1635,10 @@ function CreateMeshCentralServer(config, args) {
 
         // Write server version and run mode
         const productionMode = (process.env.NODE_ENV && (process.env.NODE_ENV == 'production'));
+        obj.args.lanonly = 0;
+        obj.args.wanonly = 0;
         const runmode = (obj.args.lanonly ? 2 : (obj.args.wanonly ? 1 : 0));
+        console.log(obj.args.lanonly, obj.args.wanonly);
         console.log("MeshCentral v" + getCurrentVersion() + ', ' + (["Hybrid (LAN + WAN) mode", "WAN mode", "LAN mode"][runmode]) + (productionMode ? ", Production mode." : '.'));
 
         // Check that no sub-domains have the same DNS as the parent
